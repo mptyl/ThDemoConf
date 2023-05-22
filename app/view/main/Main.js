@@ -1,71 +1,151 @@
-/**
- * This class is the main view for the application. It is specified in app.js as the
- * "mainView" property. That setting automatically applies the "viewport"
- * plugin causing this view to become the body element (i.e., the viewport).
- *
- * TODO - Replace this content of this view to suite the needs of your application.
- */
 Ext.define('ThDemoConf.view.main.Main', {
-  extend: 'Ext.tab.Panel',
-  xtype: 'app-main',
+  extend: 'Ext.container.Viewport',
+  alias: 'widget.app-main',
 
   requires: [
-    'Ext.plugin.Viewport',
-
-    'ThDemoConf.view.main.MainController',
     'ThDemoConf.view.main.MainModel',
+    'Ext.tab.Panel',
+    'Ext.tab.Tab',
+    'Ext.tab.Bar'
   ],
-
   controller: 'main',
-  plugins: 'viewport',
-  viewModel: 'main',
-
-  layout: {
-    type: 'border'
+  viewModel: {
+    type: 'main'
   },
-  items: [{
-    xtype: 'panel',
-    bind: {
-      title: '{name}'
-    },
-    region: 'west',
-    html: '<ul><li>This area is commonly used for navigation, for example, using a "tree" component.</li></ul>',
-    width: 250,
-    split: true,
-    items: [
-      {
-        xtype: 'container',
-        layout: {
-          type: 'vbox',
-          align: 'stretch'
+  layout: 'border',
+  items: [
+    {
+      region: 'north',
+      xtype: 'panel',
+      minHeight: 50,
+      header: {
+        titlePosition: 0,
+        bind: {
+          title: '{name}'
         },
-        defaults: {
+        items: [{
           xtype: 'button',
-          margin: '5 5 5 5',
-          width: '100%'
+          text: 'Logout',
+          handler: 'onLogout'
+        }]
+      },
+    },
+    {
+      region: 'west',
+      width: 250,
+      split: true,
+      items: [
+        {
+          xtype: 'container',
+          layout: {
+            type: 'vbox',
+            align: 'stretch'
+          },
+          defaults: {
+            xtype: 'button',
+            margin: '10 15 0 15',
+            width: '100%'
+          },
+          items: [
+
+            {
+              text: 'Download Attributes',
+              handler: 'onDownloadAttributes'
+            },
+          ]
+        }
+      ]
+    },
+    {
+      xtype: 'panel',
+      region: 'center',
+      layout: 'fit',
+      ariaLabelledBy:'Contenuto principale',
+      items: [
+        {
+          xtype: 'panel',
+          layout: 'card',
+          itemId: 'contentPanel',
+          reference: 'contentPanel',
+          items: [
+            {
+              xtype: 'panel',
+              itemId: 'homeHomePanel',
+            },
+            {
+              xtype: 'panel',
+              itemId: 'assMainPanel',
+            },
+            {
+              xtype: 'panel',
+              itemId: 'azdMainPanel',
+            },
+            {
+              xtype: 'panel',
+              itemId: 'avMainPanel',
+            },
+            {
+              xtype: 'panel',
+              itemId: 'asrMainPanel',
+            },
+            {
+              xtype: 'panel',
+              itemId: 'admMainPanel',
+            }
+          ]
         },
-        items: [
-          {
-            text: 'Logout',
-            handler: 'onLogout'
-          },
-          {
-            text: 'Download Attributes',
-            handler: 'onDownloadAttributes'
-          },
-          {
-            text: 'Rinnova token',
-            handler: 'renewToken'
-          }
-        ]
-      }
-    ]
-  }, {
-    region: 'center',
-    xtype: 'tabpanel',
-    items: [{
-      title: 'Tab 1',
-      html: '<h2>Content appropriate for the current navigation.</h2>'
-    }]
-  }]
+      ]
+    },
+    {
+      xtype: 'tabbar',
+      region: 'south',
+      layout: {
+        pack: 'center'
+      },
+      defaults: {
+        padding: '5 5 10 5',
+        handler: 'onButtonTap'
+
+      },
+      height: 60,
+      activeItem: 0,
+      items: [
+        {
+          text: 'Home',
+          iconCls: 'x-fa fa-home',
+          itemId: 'homeHome',
+          closable: false
+        },
+        {
+          text: 'Assessment',
+          iconCls: 'x-fa fa-clipboard',
+          itemId: 'assMain',
+          closable: false
+        },
+        {
+          text: 'Aziende e destinatari',
+          iconCls: 'x-fa fa-address-book',
+          itemId: 'azdMain',
+          closable: false
+        },
+        {
+          text: 'Autovalutazioni',
+          iconCls: 'x-fa fa-award',
+          itemId: 'avMain',
+          closable: false
+        }, {
+          text: 'Assessors',
+          iconCls: 'x-fa fa-marker',
+          itemId: 'asrMain',
+          closable: false
+        },
+        {
+          text: 'Utenti e ruoli',
+          iconCls: 'x-fa fa-users',
+          itemId: 'admMain',
+          closable: false
+        }
+      ]
+    }
+  ]
 });

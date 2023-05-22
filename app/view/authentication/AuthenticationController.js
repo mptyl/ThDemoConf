@@ -29,10 +29,13 @@ Ext.define('ThDemoConf.view.authentication.AuthenticationController', {
         Ext.widget('app-main');
       },
       failure: function (response, opts) {
+        const message ='Credenziali errate';
+        /*
         const status = response.status;
         const text = response.statusText;
         const obj = Ext.decode(response.responseText);
         const message = 'Status: <b>' + status + '</b><br/>Text: <b>' + text + '</b><br/>Message: <b>' + obj['error_description'] + '</b';
+        */
         Ext.Msg.alert(
           'Failure', message
         );

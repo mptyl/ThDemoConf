@@ -20,19 +20,6 @@ Ext.define('ThDemoConf.view.main.MainController', {
 
   },
 
-  onRefresh() {
-
-    // Remove the localStorage key/value
-    localStorage.removeItem('TutorialLoggedIn');
-
-    // Remove Main View
-    this.getView().destroy();
-
-    // Add the Login Window
-    Ext.widget('login');
-
-  },
-
   onDownloadAttributes() {
     const vm = this.getViewModel();
     const tdcServer = vm.get('tdcServer');

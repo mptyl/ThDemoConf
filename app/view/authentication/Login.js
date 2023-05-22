@@ -10,7 +10,7 @@ Ext.define('ThDemoConf.view.authentication.Login', {
     'Ext.button.Button'
   ],
   title: 'Effettuare il Login per accedere all\'applicazione',
-  //defaultFocus: 'authdialog', // Focus the Auth Form to force field focus as well
+  defaultFocus: 'authdialog', // Focus the Auth Form to force field focus as well
   autoShow: true,
   items: [
     {
