@@ -16,6 +16,8 @@ Ext.define('ThDemoConf.view.main.MainController', {
     this.getView().destroy();
 
     // Add the Login Window
+
+    //Ext.widget('login');
     Ext.widget('login');
 
   },
@@ -46,34 +48,4 @@ Ext.define('ThDemoConf.view.main.MainController', {
       }
     })
   },
-
-  // renewToken() {
-  //   const renewToken = localStorage.getItem('RefreshToken');
-  //   Ext.Ajax.request({
-  //     url: 'http://localhost:8086/renewToken',
-  //     method: 'POST',
-  //     params: {
-  //       renewToken: renewToken
-  //     },
-  //     success: function (response) {
-  //       const result = Ext.decode(response.responseText);
-  //       if (result && result.access_token) {
-  //         const token = result.access_token;
-  //         const refreshToken = result.refresh_token;
-  //         console.log('nuovo token');
-  //         console.log(token);
-  //         console.log('nuovo refresh token');
-  //         console.log(refreshToken);
-  //         Ext.Ajax.setDefaultXhrHeader({
-  //           'Authorization': 'Bearer ' + token
-  //         });
-  //         localStorage.setItem("RefreshToken", refreshToken);
-  //       }
-  //     },
-  //     failure: function (response) {
-  //       debugger;
-  //       //reject('Token refresh failed');
-  //     }
-  //   })
-  // }
 });
