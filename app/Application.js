@@ -6,9 +6,6 @@
 Ext.define('ThDemoConf.Application', {
   extend: 'Ext.app.Application',
 
-  requires: [
-    'ThDemoConf.util.TokenManager'
-  ],
   name: 'ThDemoConf',
 
   quickTips: false,
@@ -19,52 +16,49 @@ Ext.define('ThDemoConf.Application', {
   },
 
   views: [
-    'ThDemoConf.view.authentication.Login',
     'ThDemoConf.view.main.Main'
   ],
 
   launch: function () {
-    // Impostare il listener peer errore Ajax
-    Ext.Ajax.on('requestexception', function (conn, response, options, eOpts) {
-      console.log("Intercettata una RequestException")
-      if (response.status === 401 && options.url !== 'http://localhost:8086/renewToken') { // Unauthorized
-        // Attempt to refresh the token
-        console.log("Si tratta di una 401");
-        ThDemoConf.util.TokenManager.refreshToken().then(
-          result => {
-            debugger;
-            console.log("Eseguita la funzione refreshToken del TokenManager se ne valuta la risposta");
-            if (result) {
-              console.log("Il token è stato rinnovato, si riesegue la request originario");
-              // If token refresh was successful, retry the original request
-              const token = result['access_token'];
-              const refreshToken = result['refresh_token'];
-              localStorage.setItem("RefreshToken", refreshToken);
-              Ext.Ajax.setDefaultHeaders({
-                'Authorization': 'Bearer ' + token
-              });
-              Ext.Ajax.request(options);
-            } else {
-              console.log("Il token ricevuto è null o undefined, si chiama la funzione di login");
-              // If token refresh failed, prompt for login
-              ThDemoConf.util.TokenManager.login();
-            }
-          }).catch(error => {
-          console.log("la funzione di renew token è andata in errore, si chiama la funzione di login");
-          // If token refresh failed, prompt for login
-          ThDemoConf.util.TokenManager.login();
+    const me = this;
+
+    me.keycloak = new Keycloak();
+    me.keycloak.init(
+      {
+        onLoad: 'login-required',
+        promiseType: 'native'
+      }).then(
+      function (authenticated) {
+        // Store the token and refresh token
+        localStorage.setItem('keycloak-token', me.keycloak.token);
+        localStorage.setItem('keycloak-refresh-token', me.keycloak.refreshToken);
+        Ext.Ajax.setDefaultHeaders({
+          'Authorization': 'Bearer ' + me.keycloak.token
         });
-      }
+        const jwt = me.decodeJWT(me.keycloak.token);
+        me.userName = jwt.name;
+
+      }).catch(function (error) {
+      console.log(error);
     });
 
-    // Check to see the current value of the localStorage key
-    const loggedIn = localStorage.getItem("TutorialLoggedIn");
+    Ext.Ajax.on('beforerequest', function (conn, options, eOpts) {
+      me.keycloak.updateToken(30).then(function (refreshed) {
+        if (refreshed) {
+          // The token was refreshed, you may want to store it again
+          localStorage.setItem('keycloak-token', me.keycloak.token);
+          options.headers = options.headers || {};
+          options.headers['Authorization'] = 'Bearer ' + me.keycloak.token;
+        } else {
+          console.log('Token is still valid');
+          // The token is still valid for at least the next 30 seconds
+        }
+      }).catch(function () {
+        // If an error occurred, you may want to log the user out, as the token refresh failed.
+        me.keycloak.logout();
+      });
+    });
 
-    // This ternary operator determines the value of the TutorialLoggedIn key.
-    // If TutorialLoggedIn isn't true, we display the login window,
-    // otherwise, we display the main view
-    //Ext.widget(loggedIn ? 'app-main' : 'login');
-    Ext.widget(loggedIn ? 'app-main' : 'login');
 
   },
 
@@ -76,5 +70,15 @@ Ext.define('ThDemoConf.Application', {
         }
       }
     );
+  },
+
+  decodeJWT(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
   }
 });

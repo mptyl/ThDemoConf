@@ -8,18 +8,9 @@ Ext.define('ThDemoConf.view.main.MainController', {
   alias: 'controller.main',
 
   onLogout() {
-
-    // Remove the localStorage key/value
-    localStorage.removeItem('TutorialLoggedIn');
-
-    // Remove Main View
+    const keycloak=ThDemoConf.getApplication().keycloak;
     this.getView().destroy();
-
-    // Add the Login Window
-
-    //Ext.widget('login');
-    Ext.widget('login');
-
+    keycloak.logout();
   },
 
   onDownloadAttributes() {
@@ -48,4 +39,12 @@ Ext.define('ThDemoConf.view.main.MainController', {
       }
     })
   },
+  onButtonTap(button) {
+    const me=this;
+    me.getViewModel().getStore('attributestore').load();
+    me.getViewModel().getStore('placemarkstore').load();
+    this.redirectTo(button.getItemId(), {
+      force: true,
+    })
+  }
 });

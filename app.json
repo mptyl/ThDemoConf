@@ -4,7 +4,7 @@
   "version": "1.0.0.0",
   "framework": "ext",
   "toolkit": "classic",
-  "theme": "theme-graphite",
+  "theme": "theme-triton",
 
   /**
    * The list of required packages (with optional versions; default is "latest").
@@ -287,6 +287,7 @@
    * Settings specific to development builds.
    */
   "development": {
+    "server": "http://localhost:8096/",
     "watch": {
       "delay": 250
     }

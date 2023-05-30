@@ -16,6 +16,9 @@ Ext.define('ThDemoConf.view.main.Main', {
   items: [
     {
       region: 'north',
+
+
+
       xtype: 'panel',
       minHeight: 50,
       header: {
@@ -26,35 +29,10 @@ Ext.define('ThDemoConf.view.main.Main', {
         items: [{
           xtype: 'button',
           text: 'Logout',
-          handler: 'onLogout'
+          handler: 'onLogout',
+          cls:'logoutButton'
         }]
       },
-    },
-    {
-      region: 'west',
-      width: 250,
-      split: true,
-      items: [
-        {
-          xtype: 'container',
-          layout: {
-            type: 'vbox',
-            align: 'stretch'
-          },
-          defaults: {
-            xtype: 'button',
-            margin: '10 15 0 15',
-            width: '100%'
-          },
-          items: [
-
-            {
-              text: 'Download Attributes',
-              handler: 'onDownloadAttributes'
-            },
-          ]
-        }
-      ]
     },
     {
       xtype: 'panel',
@@ -73,25 +51,25 @@ Ext.define('ThDemoConf.view.main.Main', {
               itemId: 'homeHomePanel',
             },
             {
-              xtype: 'panel',
-              itemId: 'assMainPanel',
+              xtype: 'theater-mainpanel-panel',
+              itemId: 'theaterMainPanel',
             },
-            {
-              xtype: 'panel',
-              itemId: 'azdMainPanel',
-            },
-            {
-              xtype: 'panel',
-              itemId: 'avMainPanel',
-            },
-            {
-              xtype: 'panel',
-              itemId: 'asrMainPanel',
-            },
-            {
-              xtype: 'panel',
-              itemId: 'admMainPanel',
-            }
+            // {
+            //   xtype: 'panel',
+            //   itemId: 'azdMainPanel',
+            // },
+            // {
+            //   xtype: 'panel',
+            //   itemId: 'avMainPanel',
+            // },
+            // {
+            //   xtype: 'panel',
+            //   itemId: 'asrMainPanel',
+            // },
+            // {
+            //   xtype: 'panel',
+            //   itemId: 'admMainPanel',
+            // }
           ]
         },
       ]
@@ -117,34 +95,34 @@ Ext.define('ThDemoConf.view.main.Main', {
           closable: false
         },
         {
-          text: 'Assessment',
-          iconCls: 'x-fa fa-clipboard',
-          itemId: 'assMain',
-          closable: false
-        },
-        {
-          text: 'Aziende e destinatari',
-          iconCls: 'x-fa fa-address-book',
-          itemId: 'azdMain',
-          closable: false
-        },
-        {
-          text: 'Autovalutazioni',
-          iconCls: 'x-fa fa-award',
-          itemId: 'avMain',
-          closable: false
-        }, {
-          text: 'Assessors',
+          text: 'Theater',
           iconCls: 'x-fa fa-marker',
-          itemId: 'asrMain',
+          itemId: 'theaterMain',
           closable: false
         },
-        {
-          text: 'Utenti e ruoli',
-          iconCls: 'x-fa fa-users',
-          itemId: 'admMain',
-          closable: false
-        }
+        // {
+        //   text: 'Aziende e destinatari',
+        //   iconCls: 'x-fa fa-address-book',
+        //   itemId: 'azdMain',
+        //   closable: false
+        // },
+        // {
+        //   text: 'Autovalutazioni',
+        //   iconCls: 'x-fa fa-award',
+        //   itemId: 'avMain',
+        //   closable: false
+        // }, {
+        //   text: 'Assessors',
+        //   iconCls: 'x-fa fa-marker',
+        //   itemId: 'asrMain',
+        //   closable: false
+        // },
+        // {
+        //   text: 'Utenti e ruoli',
+        //   iconCls: 'x-fa fa-users',
+        //   itemId: 'admMain',
+        //   closable: false
+        // }
       ]
     }
   ]

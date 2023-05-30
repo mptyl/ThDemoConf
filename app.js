@@ -13,6 +13,14 @@ Ext.application({
         'ThDemoConf.*'
     ],
 
+  controllers: [
+    'ThDemoConf.controller.TdcRouter',
+  ],
+
+  views: [
+    'main.Main'
+  ],
+
     // The name of the initial view to create.
-    //mainView: 'ThDemoConf.view.main.Main'
+  mainView: 'ThDemoConf.view.main.Main'
 });
