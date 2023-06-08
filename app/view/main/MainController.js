@@ -17,7 +17,7 @@ Ext.define('ThDemoConf.view.main.MainController', {
     const vm = this.getViewModel();
     const tdcServer = vm.get('tdcServer');
     Ext.Ajax.request({
-      url: tdcServer,
+      url: tdcServer+'test/user',
       method: 'GET',
       success: function (response, opts) {
         Ext.Msg.alert(

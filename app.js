@@ -17,6 +17,12 @@ Ext.application({
     'ThDemoConf.controller.TdcRouter',
   ],
 
+  stores:[
+    'Measures',
+    'Messages',
+    'Thresholds',
+  ],
+
   views: [
     'main.Main'
   ],

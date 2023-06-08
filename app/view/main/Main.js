@@ -16,9 +16,6 @@ Ext.define('ThDemoConf.view.main.Main', {
   items: [
     {
       region: 'north',
-
-
-
       xtype: 'panel',
       minHeight: 50,
       header: {

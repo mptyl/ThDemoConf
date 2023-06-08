@@ -13,6 +13,7 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkGrid', {
       xtype: 'grid',
       scrollable: 'vertical',
       reference: 'placemarkgrid',
+      itemId: 'placemarkGrid',
       header: {
         titleAlign: 'center',
         titlePosition: 1
@@ -94,6 +95,12 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkGrid', {
             padding: 10,
           },
           items: [
+            {
+              xtype: 'button',
+              iconCls: 'x-fa fa-arrow-left',
+              text: 'Ricarica i placemark da Theater',
+              handler: 'onReloadPlacemarks',
+            },
             '->',
             {
               reference: 'placemarkReloadButton',

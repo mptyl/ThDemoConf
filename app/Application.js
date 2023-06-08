@@ -59,7 +59,14 @@ Ext.define('ThDemoConf.Application', {
       });
     });
 
-
+/*    Ext.Ajax.on('requestexception', function(conn, response, options, eOpts) {
+      if(response.status == 401){
+        me.keycloak.logout();
+      }
+      else {
+        Ext.Msg.alert('Failure', 'Server-side failure with status code ' + response.status);
+      }
+    });*/
   },
 
   onAppUpdate: function () {

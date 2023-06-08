@@ -2,6 +2,9 @@ Ext.define('ThDemoConf.view.theater.attribute.AttributeFormController', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.theater-attribute-attributeform',
 
+  mixins: [
+    'ThDemoConf.mixin.PlacemarkMixin'
+  ],
 
   onBackToList() {
     const me = this;
@@ -11,6 +14,9 @@ Ext.define('ThDemoConf.view.theater.attribute.AttributeFormController', {
     vm.set('attributeGridHidden', false);
     vm.set('attributeFormHidden', true);
     panel.resumeLayouts()
-  }
+  },
+
+
+
 
 });

@@ -6,7 +6,9 @@ Ext.define('ThDemoConf.view.theater.attribute.AttributeModel', {
     attributeName: null,
     gridName: 'Lista attributi',
     attributeFormHidden:true,
-    attributeGridHidden:false
+    attributeGridHidden:false,
+    createdAt:null,
+    updatedAt:null,
   },
 
 

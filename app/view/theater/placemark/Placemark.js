@@ -11,20 +11,20 @@ Ext.define('ThDemoConf.view.theater.placemark.Placemark', {
   viewModel: {
     type: 'theater-placemark'
   },
-  itemId:"placemarkPanel",
- layout:'fit',
+  itemId: "placemarkPanel",
+  layout: 'fit',
 
   items: [
     {
       xtype: 'placemark-grid',
-      bind:{
-        hidden:'{placemarkGridHidden}'
+      bind: {
+        hidden: '{placemarkGridHidden}'
       }
     },
     {
       xtype: 'placemark-form',
-      bind:{
-        hidden:'{placemarkFormHidden}'
+      bind: {
+        hidden: '{placemarkFormHidden}'
       }
     }
   ]

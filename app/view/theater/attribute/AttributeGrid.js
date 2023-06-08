@@ -82,6 +82,12 @@ Ext.define('ThDemoConf.view.theater.attribute.AttributeGrid', {
             padding: 10,
           },
           items: [
+            {
+              xtype: 'button',
+              iconCls: 'x-fa fa-arrow-left',
+              text: 'Ricarica gli Attributi da Theater',
+              handler: 'onReloadAttributes',
+            },
             '->',
             {
               reference: 'reloadButton',
