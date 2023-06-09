@@ -97,14 +97,14 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkGrid', {
           items: [
             {
               xtype: 'button',
-              iconCls: 'x-fa fa-arrow-left',
+              iconCls: 'x-fa fa-download',
               text: 'Ricarica i placemark da Theater',
               handler: 'onReloadPlacemarks',
             },
             '->',
             {
               reference: 'placemarkReloadButton',
-              iconCls: 'x-fa fa-arrow-up',
+              iconCls: 'x-fa fa-redo',
               text: 'Reload',
               handler: 'onReload',
               textAlign: 'right',

@@ -17,7 +17,8 @@
    */
   "requires": [
     "font-awesome",
-    "ux"
+    "ux",
+    'google'
   ],
   /**
    * The relative path to the application's markup file (html, jsp, asp, etc.).

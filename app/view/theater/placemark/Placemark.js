@@ -12,6 +12,7 @@ Ext.define('ThDemoConf.view.theater.placemark.Placemark', {
     type: 'theater-placemark'
   },
   itemId: "placemarkPanel",
+  reference:'placemarkPanel',
   layout: 'fit',
 
   items: [

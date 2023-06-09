@@ -39,8 +39,9 @@ Ext.define('ThDemoConf.Application', {
         me.userName = jwt.name;
 
       }).catch(function (error) {
-      console.log(error);
-    });
+        console.log(error);
+      }
+    );
 
     Ext.Ajax.on('beforerequest', function (conn, options, eOpts) {
       me.keycloak.updateToken(30).then(function (refreshed) {
@@ -59,14 +60,16 @@ Ext.define('ThDemoConf.Application', {
       });
     });
 
-/*    Ext.Ajax.on('requestexception', function(conn, response, options, eOpts) {
-      if(response.status == 401){
-        me.keycloak.logout();
-      }
-      else {
-        Ext.Msg.alert('Failure', 'Server-side failure with status code ' + response.status);
-      }
-    });*/
+    /*    Ext.Ajax.on('requestexception', function(conn, response, options, eOpts) {
+          if(response.status == 401){
+            me.keycloak.logout();
+          }
+          else {
+            Ext.Msg.alert('Failure', 'Server-side failure with status code ' + response.status);
+          }
+        });*/
+
+
   },
 
   onAppUpdate: function () {

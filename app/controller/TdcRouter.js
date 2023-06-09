@@ -5,6 +5,8 @@ Ext.define('ThDemoConf.controller.TdcRouter', {
     'Ext.route.Mixin'
   ],
 
+
+
   refs: {
     contentPanel: '#contentPanel',
     theaterContentPanel:'#theaterMainPanel',
@@ -17,10 +19,12 @@ Ext.define('ThDemoConf.controller.TdcRouter', {
 
   routes: {
     ':xtype': {
-      action: 'activateMainRoute'
+      action: 'activateMainRoute',
+      lazy: false
     },
     'theater/:xtype': {
-      action: 'activateTheaterRoute'
+      action: 'activateTheaterRoute',
+      lazy: true
     },
     // 'azd/:xtype': {
     //   action: 'activateAzddestRoute'
@@ -36,16 +40,14 @@ Ext.define('ThDemoConf.controller.TdcRouter', {
     // },
   },
 
-  activateMainRoute(tipo){
-      console.log('activate '+tipo+'Panel')
-      this.getContentPanel().layout.setActiveItem(tipo+'Panel');
+  activateMainRoute(type){
+      this.getContentPanel().layout.setActiveItem(type+'Panel');
   },
 
-  activateTheaterRoute(tipo){
-    console.log('activate '+tipo+'Panel')
+  activateTheaterRoute(type){
     const mainPanel=this.getContentPanel();
     mainPanel.layout.setActiveItem('theaterMainPanel');
-    this.getTheaterContentPanel().layout.setActiveItem(tipo+'Panel');
+    this.getTheaterContentPanel().layout.setActiveItem(type+'Panel');
   },
 
   // activateAzddestRoute(xtype){

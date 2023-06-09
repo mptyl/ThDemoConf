@@ -3,6 +3,9 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkForm', {
   alias: 'widget.placemark-form',
   requires: [
     'ThDemoConf.view.theater.placemark.PlacemarkFormController',
+    'ThDemoConf.view.theater.placemark.MapBoxPanel',
+    'Ext.window.*',
+    'Ext.ux.GMapPanel'
   ],
 
   controller: 'theater-placemark-placemarkform',
@@ -26,52 +29,52 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkForm', {
       margin: '0 10 0 10',
       items: [
         {
-        xtype: 'grid',
-        margin: '10 0 0 0',
-        itemId: 'messageGrid',
-        columns: [
-          {
-            xtype: 'gridcolumn',
-            dataIndex: 'key',
-            text: 'Key',
-            flex: 20
-          },
-          {
-            xtype: 'gridcolumn',
-            dataIndex: 'status',
-            renderer: 'statusRenderer',
-            flex: 2
-          },
-          {
-            xtype: 'gridcolumn',
-            dataIndex: 'value',
-            text: 'Valore da inviare',
-            flex: 40,
-            editor: {}
-          },
-          {
-            xtype: 'gridcolumn',
-            dataIndex: 'presentStatus',
-            renderer: 'statusRenderer',
-            flex: 2
-          },
-          {
-            xtype: 'gridcolumn',
-            dataIndex: 'presentValue',
-            text: 'Valore attuale',
-            flex: 40
-          },
-        ],
-        plugins: {
-          cellediting: {
-            clicksToEdit: 1,
-            listeners: {
-              beforeedit: 'onBeforeEdit',
-              edit: 'onEdit'
+          xtype: 'grid',
+          margin: '10 0 0 0',
+          itemId: 'messageGrid',
+          columns: [
+            {
+              xtype: 'gridcolumn',
+              dataIndex: 'key',
+              text: 'Key',
+              flex: 20
+            },
+            {
+              xtype: 'gridcolumn',
+              dataIndex: 'status',
+              renderer: 'statusRenderer',
+              flex: 2
+            },
+            {
+              xtype: 'gridcolumn',
+              dataIndex: 'value',
+              text: 'Valore da inviare',
+              flex: 40,
+              editor: {}
+            },
+            {
+              xtype: 'gridcolumn',
+              dataIndex: 'presentStatus',
+              renderer: 'statusRenderer',
+              flex: 2
+            },
+            {
+              xtype: 'gridcolumn',
+              dataIndex: 'presentValue',
+              text: 'Valore attuale',
+              flex: 40
+            },
+          ],
+          plugins: {
+            cellediting: {
+              clicksToEdit: 1,
+              listeners: {
+                beforeedit: 'onBeforeEdit',
+                edit: 'onEdit'
+              }
             }
-          }
-        },
-      }],
+          },
+        }],
       dockedItems: [
         {
           xtype: 'toolbar',
@@ -109,103 +112,123 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkForm', {
           items: [
             {
               xtype: 'fieldset',
-              title: 'Placemark',
-              layout: {
-                type: 'vbox',
-                align: 'stretch'
-              },
-              items: [
-                {
-                  xtype: 'fieldcontainer',
-                  layout: 'hbox',
-                  //padding: '10 0 10 0',
-                  items: [
-                    {
-                      xtype: 'textfield',
-                      fieldLabel: 'Id',
-                      bind: '{placemarkRecord.id}',
-                      readOnly: true,
-                      flex: 1
-                    },
-
-                    {
-                      xtype: 'textfield',
-                      bind: '{placemarkRecord.title}',
-                      fieldLabel: 'Titolo',
-                      readOnly: true,
-                      flex: 3
-                    },
-                    {
-                      xtype: 'textfield',
-                      bind: '{placemarkRecord.description}',
-                      fieldLabel: 'Descrizione',
-                      readOnly: true,
-                      flex: 3
-                    },
-                  ]
-                },
-                {
-                  xtype: 'fieldcontainer',
-                  layout: 'hbox',
-                  //padding: '10 0 10 0',
-                  items: [
-                    {
-                      xtype: 'textfield',
-                      fieldLabel: 'Id Canale',
-                      bind: '{placemarkRecord.channelId}',
-                      readOnly: true,
-                      flex: 1
-                    },
-
-                    {
-                      xtype: 'textfield',
-                      bind: '{createdAt}',
-                      fieldLabel: 'Creato il:',
-                      readOnly: true,
-                      flex: 3
-                    },
-                    {
-                      xtype: 'textfield',
-                      bind: '{updatedAt}',
-                      fieldLabel: 'Ultimo aggiornamento:',
-                      readOnly: true,
-                      flex: 3
-                    },
-                  ]
-                },
-              ]
-            },
-            {
-              xtype: 'fieldset',
-              title: 'Posizionamento',
               layout: {
                 type: 'hbox',
                 align: 'stretch'
               },
               items: [
                 {
-                  xtype: 'textfield',
-                  fieldLabel: 'Attributo',
-                  bind: '{placemarkRecord.attributeId}',
-                  readOnly: true,
-                  flex: 1
+                  xtype: 'fieldcontainer',
+                  flex:1,
+                  items: [
+                    {
+                      xtype: 'fieldset',
+                      title: 'Placemark',
+                      layout: {
+                        type: 'vbox',
+                        align: 'stretch'
+                      },
+                      items: [
+                        {
+                          xtype: 'fieldcontainer',
+                          layout: 'hbox',
+                          //padding: '10 0 10 0',
+                          items: [
+                            {
+                              xtype: 'textfield',
+                              fieldLabel: 'Id',
+                              bind: '{placemarkRecord.id}',
+                              readOnly: true,
+                              flex: 1
+                            },
+
+                            {
+                              xtype: 'textfield',
+                              bind: '{placemarkRecord.title}',
+                              fieldLabel: 'Titolo',
+                              readOnly: true,
+                              flex: 3
+                            },
+                            {
+                              xtype: 'textfield',
+                              bind: '{placemarkRecord.description}',
+                              fieldLabel: 'Descrizione',
+                              readOnly: true,
+                              flex: 3
+                            },
+                          ]
+                        },
+                        {
+                          xtype: 'fieldcontainer',
+                          layout: 'hbox',
+                          //padding: '10 0 10 0',
+                          items: [
+                            {
+                              xtype: 'textfield',
+                              fieldLabel: 'Id Canale',
+                              bind: '{placemarkRecord.channelId}',
+                              readOnly: true,
+                              flex: 1
+                            },
+
+                            {
+                              xtype: 'textfield',
+                              bind: '{createdAt}',
+                              fieldLabel: 'Creato il:',
+                              readOnly: true,
+                              flex: 3
+                            },
+                            {
+                              xtype: 'textfield',
+                              bind: '{updatedAt}',
+                              fieldLabel: 'Ultimo aggiornamento:',
+                              readOnly: true,
+                              flex: 3
+                            },
+                          ]
+                        },
+                      ]
+                    },
+                    {
+                      xtype: 'fieldset',
+                      title: 'Posizionamento',
+                      layout: {
+                        type: 'hbox',
+                        align: 'stretch'
+                      },
+                      items: [
+                        {
+                          xtype: 'textfield',
+                          fieldLabel: 'Attributo',
+                          bind: '{placemarkRecord.attributeId}',
+                          readOnly: true,
+                          flex: 1
+                        },
+                        {
+                          xtype: 'textfield',
+                          fieldLabel: 'Tipo coordinate',
+                          bind: '{placemarkRecord.geometry.type}',
+                          readOnly: true,
+                          flex: 3
+                        },
+                        {
+                          xtype: 'textfield',
+                          fieldLabel: 'Coordinate',
+                          bind: '{placemarkRecord.geometry.coordinates}',
+                          readOnly: true,
+                          flex: 3
+                        }
+                      ]
+                    },
+                  ]
                 },
                 {
-                  xtype: 'textfield',
-                  fieldLabel: 'Tipo coordinate',
-                  bind: '{placemarkRecord.geometry.type}',
-                  readOnly: true,
-                  flex: 3
-                },
-                {
-                  xtype: 'textfield',
-                  fieldLabel: 'Coordinate',
-                  bind: '{placemarkRecord.geometry.coordinates}',
-                  readOnly: true,
-                  flex: 3
+                  xtype: 'mapboxpanel',
+                  margin: 5
                 }
               ]
             },
+
           ]
         },
         {
@@ -213,56 +236,57 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkForm', {
           margin: '10 0 0 0',
           itemId: 'thresholdGrid',
           title: 'Status Thresholds',
-          store:'Thresholds',
+          store: 'Thresholds',
           columns: [
             {
               xtype: 'gridcolumn',
               dataIndex: 'message',
               text: 'Messaggio',
               renderer: 'renderMessageColumn',
-              flex:1
+              flex: 1
             },
             {
               xtype: 'gridcolumn',
               dataIndex: 'messageType',
               text: 'Tipo messaggio',
               renderer: 'renderMessageTypeColumn',
-              flex:1
+              flex: 1
             },
             {
               xtype: 'gridcolumn',
               dataIndex: 'level',
               text: 'Livello',
-              flex:3
+              flex: 3
             },
             {
               xtype: 'gridcolumn',
               dataIndex: 'operator',
               text: 'Operatore',
-              flex:3
+              flex: 3
             },
             {
               xtype: 'gridcolumn',
               dataIndex: 'value',
               text: 'Valore',
-              flex:2
+              flex: 2
             },
             {
               xtype: 'gridcolumn',
               dataIndex: 'min',
               text: 'Minimo',
-              flex:2
+              flex: 2
             },
             {
               xtype: 'gridcolumn',
               dataIndex: 'max',
               text: 'Massimo',
-              flex:2
+              flex: 2
             }
           ]
         }
       ]
     },
+
   ],
   dockedItems: [
     {
@@ -271,21 +295,18 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkForm', {
       ui: 'footer',
       margin: '15 10 0 10',
       items: [
-
         {
           xtype: 'tbfill'
         },
         {
           xtype: 'button',
-          iconCls: 'x-fa fa-arrow-left',
+          iconCls: 'x-fa fa-list',
           text: 'Torna alla lista',
           handler: 'onBackToList',
         }
       ]
     }
   ],
-
-
 });
 
 

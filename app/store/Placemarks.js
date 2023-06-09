@@ -54,7 +54,7 @@ Ext.define('ThDemoConf.store.Placemarks', {
   onDirectException: function (proxy, response, operation, eOpts) {
     const me = this;
     console.log(operation);
-    Ext.Msg.alert('Errore nell\'accesso alla tabella  Placemark', operation.getError(),
+    Ext.Msg.alert('Errore Direct nell\'accesso alla tabella  Placemark', operation.getError(),
       function () {
         me.rejectChanges();
       }, me);

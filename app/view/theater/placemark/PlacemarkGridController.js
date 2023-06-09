@@ -21,6 +21,7 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkGridController', {
     thresholdGrid.setStore(thresholdStore);
 
     me._updatePlacemarkDetail(record, panel, vm);
+    me.fireEvent('placemarkDataLoaded');
     panel.resumeLayouts()
   },
 

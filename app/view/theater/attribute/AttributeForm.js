@@ -158,12 +158,13 @@ Ext.define('ThDemoConf.view.theater.attribute.AttributeForm', {
       margin: '15 10 0 10',
       items: [
 
+
         {
           xtype: 'tbfill'
         },
         {
           xtype: 'button',
-          iconCls: 'x-fa fa-arrow-left',
+          iconCls: 'x-fa fa-list',
           text: 'Torna alla lista',
           handler: 'onBackToList',
         }

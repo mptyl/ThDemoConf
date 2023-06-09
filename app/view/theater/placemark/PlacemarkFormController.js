@@ -20,27 +20,27 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkFormController', {
     const me = this;
     const vm = me.getViewModel();
     const grid = button.up().up().down('#messageGrid');
-    const store= grid.getStore();
+    const store = grid.getStore();
     const tdcServer = vm.get('tdcServer');
     const placemark = vm.get('placemarkRecord').get('publicId');
-    const messagesObject=me._prepareListOfMessages(placemark,store)
+    const messagesObject = me._prepareListOfMessages(placemark, store)
     Ext.Ajax.request({
       url: tdcServer + 'sendMessages',
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {'Content-Type': 'application/json'},
       jsonData: messagesObject,
       success: function (response, opts) {
-        const toolbar=button.up()
-        const placemarkForm=toolbar.up();
-        const placemarkPanel=placemarkForm.up();
-        const overMyPanel=placemarkPanel.up();
-        const gridPanel=overMyPanel.down('placemark-grid');
-        const m2grid=gridPanel.down('#placemarkGrid');
-        const placemarkStore=m2grid.getStore();
+        const toolbar = button.up()
+        const placemarkForm = toolbar.up();
+        const placemarkPanel = placemarkForm.up();
+        const overMyPanel = placemarkPanel.up();
+        const gridPanel = overMyPanel.down('placemark-grid');
+        const m2grid = gridPanel.down('#placemarkGrid');
+        const placemarkStore = m2grid.getStore();
         placemarkStore.reload();
-        store.each(function(record){
-          record.set('presentValue',record.get('value'))
-          record.set('presentStatus',record.get('status'));
+        store.each(function (record) {
+          record.set('presentValue', record.get('value'))
+          record.set('presentStatus', record.get('status'));
           record.commit();
         })
 
@@ -51,7 +51,7 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkFormController', {
         Ext.Msg.alert('Success', 'Messages sent successfully');
       },
       failure: function (response, opts) {
-        if(response.status===401)
+        if (response.status === 401)
           keycloak.login();
         // Handle the failed response here
         Ext.Msg.alert('Failure', 'Server-side failure with status code ' + response.status);
@@ -79,7 +79,7 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkFormController', {
   },
 
   onBeforeEdit(editor, context) {
-    const me=this;
+    const me = this;
     var record = context.record;
     var column = context.column;
     if (column.dataIndex === 'value') {
@@ -102,13 +102,13 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkFormController', {
     }
   },
 
-  onEdit(editor,context) {
-    const me=this;
-    const record=context.record;
-    const newValue=context.value;
-    const statusThresholds=record.get('statusThresholds');
-    const key=record.get('key');
-    const status=me._getStatus(statusThresholds, key, newValue);
+  onEdit(editor, context) {
+    const me = this;
+    const record = context.record;
+    const newValue = context.value;
+    const statusThresholds = record.get('statusThresholds');
+    const key = record.get('key');
+    const status = me._getStatus(statusThresholds, key, newValue);
     record.set('status', status);
     record.commit()
   },
@@ -120,12 +120,12 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkFormController', {
    * @returns {*}
    * @private
    */
-  _prepareListOfMessages(placemarkValue,store) {
+  _prepareListOfMessages(placemarkValue, store) {
     const resultObject = {
       name: placemarkValue, // set placemark value here
       data: []
     };
-    store.each(function(record) {
+    store.each(function (record) {
       const key = record.get('key');
       const value = record.get('value');
       resultObject.data.push({key: key, value: value});
@@ -133,7 +133,15 @@ Ext.define('ThDemoConf.view.theater.placemark.PlacemarkFormController', {
     return resultObject
   },
 
+  onShowMap(button) {
+    console.log('onShowMap')
+    const vm = this.getViewModel();
+    let placemarkRecord = vm.get('placemarkRecord')
+    let geometry = placemarkRecord.get('geometry');
+    let coordinates = geometry.coordinates
 
-
-
+    let latitude = coordinates[0];
+    let longitude = coordinates[1];
+  }
 });
+
